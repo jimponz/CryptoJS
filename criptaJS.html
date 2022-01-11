@@ -131,29 +131,49 @@
 
 		function onClickEncrypt(){
 
-			var message = document.getElementById("messaggio").value;
-			var key = document.getElementById("password").value;
+			var message = document.getElementById("messaggio").value.trim();
+			if (message === ""){
+			    document.getElementById("result").innerHTML = "<p class='text-white'> Inserisci un messaggio!</p>";
+			}
+			else{
+	   			var key = document.getElementById("password").value;
+				if (key){
+				    clear("password");
+					    var res = encrypt(message, key);
+					    document.getElementById("textOutput").value = res;
+					    document.getElementById("result").innerHTML = "<p class='text-white'> Criptazione avvenuta con successo!</p>";
+				}
+				else{
+				    document.getElementById("result").innerHTML = "<p class='text-white'> Impossibile criptare se non inserisci una password!</p>";
+				}
+			}
 
-			clear("password");
-			var res = encrypt(message, key);
-			document.getElementById("textOutput").value = res;
-			document.getElementById("result").innerHTML = "<p class='text-white'> Criptazione avvenuta con successo!</p>";
 		}
 
 		function onClickDecrypt(){
 
 			var message = document.getElementById("messaggio").value;
-			var key = document.getElementById("password").value;
+			if (message === ""){
+			    document.getElementById("result").innerHTML = "<p class='text-white'> Inserisci un messaggio!</p>";
+			}
+			else {
+				var key = document.getElementById("password").value;
+				if (key){
+				    clear("password");
+						var res = decrypt(message, key);
+						document.getElementById("textOutput").value = res;
+						if (res){
+						    document.getElementById("result").innerHTML = "<p class='text-white'> Decriptazione avvenuta con successo!</p>";
+						}
+						else{
+						    document.getElementById("result").innerHTML = "<p class='text-white'> Impossibile decriptare, controlla la chiave!</p>";
+						}
+				}
+				else{
+				    document.getElementById("result").innerHTML = "<p class='text-white'> Impossibile decriptare se non inserisci una password!</p>";
+				}
+			}
 
-			clear("password");
-			var res = decrypt(message, key);
-			document.getElementById("textOutput").value = res;
-			if (res){
-			    document.getElementById("result").innerHTML = "<p class='text-white'> Decriptazione avvenuta con successo!</p>";
-			}
-			else{
-			    document.getElementById("result").innerHTML = "<p class='text-white'> Impossibile decriptare, controlla la chiave!</p>";
-			}
 		}
 
 		function clear(id){
